@@ -31,11 +31,15 @@ Excel uygulaması olmadan ham veri hatalarını gidermeyi sağlayan basit bir uy
     dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true
     ```
 5. **EXE Dosyasını Bulun:**
-   - Derleme sonrası .exe dosyası şu konumda oluşacaktır:
+   - 3. adımı izleyerek derlediyseniz .exe dosyası şu konumda olacaktır :
    ```bash
    bin\Release\net8.0-windows\win-x64\publish\Daily_Data_Helper.exe
    ```
-   
+   - 4. adımı izleyerek portable derlediyseniz .exe dosyası şu konumda olacaktır : 
+   ```bash
+   \bin\Release\net8.0-windows\win-x64\publish\Daily_Data_Helper.exe
+   ```
+ 
 
 ## 📄 Lisans
 

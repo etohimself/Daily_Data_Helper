@@ -17,6 +17,7 @@ using ClosedXML.Excel;
 using Microsoft.Win32;
 using System.IO;
 using System.Globalization;
+using Microsoft.VisualBasic.FileIO;
 
 
 namespace Daily_Data_Helper
@@ -87,11 +88,30 @@ namespace Daily_Data_Helper
 
                 try
                 {
-                    //Read all lines of csv
-                    var csvLines = File.ReadAllLines(filePath);
+                    List<string[]> csvData = new List<string[]>();
 
-                    //Split each line by semicolon
-                    List<string[]> csvData = csvLines.Select(eachLine => eachLine.Split(';')).ToList();
+                    // Automatically detect delimiter from first line
+                    string firstLine = File.ReadLines(filePath).FirstOrDefault();
+                    char detectedDelimiter = ',';
+                    if (firstLine != null)
+                    {
+                        if (firstLine.Contains(";")) detectedDelimiter = ';';
+                        else if (firstLine.Contains("\t")) detectedDelimiter = '\t';
+                        else if (firstLine.Contains(",")) detectedDelimiter = ',';
+                    }
+
+                    using (TextFieldParser parser = new TextFieldParser(filePath, Encoding.UTF8))
+                    {
+                        parser.TextFieldType = FieldType.Delimited;
+                        parser.SetDelimiters(detectedDelimiter.ToString());
+                        parser.HasFieldsEnclosedInQuotes = true; // fixes quoted values like "a;b;c"
+
+                        while (!parser.EndOfData)
+                        {
+                            string[] fields = parser.ReadFields();
+                            csvData.Add(fields);
+                        }
+                    }
 
                     //Get headers
                     string[] headers = csvData[0];

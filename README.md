@@ -28,7 +28,7 @@ Excel uygulaması olmadan ham veri hatalarını gidermeyi sağlayan basit bir uy
     ```
 4. **Hedef Sistemde .NET Desktop Runtime 8 Yüklü Değil İse (Portable):**
    ```bash   
-    dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true p:IncludeAllContentForSelfExtract=true
+    dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true
     ```
 5. **EXE Dosyasını Bulun:**
    - Derleme sonrası .exe dosyası şu konumda oluşacaktır:
